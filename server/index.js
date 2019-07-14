@@ -30,14 +30,14 @@ todoRoutes.route('/').get(function(req, res) {
 });
 
 todoRoutes.route('/:id').get(function(req, res) {
-  let id = req.params.id;
+  const id = req.params.id;
   Todo.findById(id, function(err, todo) {
     res.json(todo);
   });
 });
 
 todoRoutes.route('/add').post(function(req, res) {
-  let todo = new Todo(req.body);
+  const todo = new Todo(req.body);
   todo
     .save()
     .then(todo => {
@@ -49,7 +49,8 @@ todoRoutes.route('/add').post(function(req, res) {
 });
 
 todoRoutes.route('/update/:id').post(function(req, res) {
-  Todo.findById(req.params.id, function(err, todo) {
+  const id = req.params.id;
+  Todo.findById(id, function(err, todo) {
     if (!todo) res.status(404).send('data is not found');
     else todo.description = req.body.description;
     todo.responsible = req.body.responsible;
@@ -63,6 +64,20 @@ todoRoutes.route('/update/:id').post(function(req, res) {
       })
       .catch(err => {
         res.status(400).send('Update not possible');
+      });
+  });
+});
+
+todoRoutes.route('/delete/:id').post(function(req, res) {
+  const id = req.params.id;
+  Todo.findById(id, function(err, todo) {
+    todo
+      .remove(id)
+      .then(todo => {
+        res.status(200).json({ todo: 'todo deleted successfully' });
+      })
+      .catch(err => {
+        res.status(400).send('deleting new todo failed');
       });
   });
 });
