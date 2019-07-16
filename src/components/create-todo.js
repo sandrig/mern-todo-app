@@ -52,6 +52,8 @@ export class CreateTodo extends Component {
       priority: '',
       completed: false,
     });
+
+    this.props.history.push('/');
   };
 
   render() {
