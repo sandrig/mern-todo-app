@@ -25,31 +25,31 @@ export class EditTodo extends Component {
       });
   }
 
-  onChangeTodoDescription(e) {
+  onChangeTodoDescription = e => {
     this.setState({
       description: e.target.value,
     });
-  }
+  };
 
-  onChangeTodoResponsible(e) {
+  onChangeTodoResponsible = e => {
     this.setState({
       responsible: e.target.value,
     });
-  }
+  };
 
-  onChangeTodoPriority(e) {
+  onChangeTodoPriority = e => {
     this.setState({
       priority: e.target.value,
     });
-  }
+  };
 
-  onChangeTodoCompleted(e) {
+  onChangeTodoCompleted = e => {
     this.setState({
       completed: !this.state.completed,
     });
-  }
+  };
 
-  onSubmit(e) {
+  onSubmit = e => {
     const { description, responsible, priority, completed } = this.state;
     e.preventDefault();
     const obj = {
@@ -67,7 +67,7 @@ export class EditTodo extends Component {
       .then(res => console.log(res.data));
 
     this.props.history.push('/');
-  }
+  };
 
   render() {
     const { description, responsible, priority, completed } = this.state;
